@@ -9,17 +9,46 @@ type Props = {
 
 export default function SliderControl({ audio }: Props) {
   const [currentTime, setCurrentTime] = useState(0)
+  const [duration, setDuration] = useState(0)
+
+  //   useEffect(() => {
+  //     audio.current.addEventListener('timeupdate', handleTimeUpdate)
+  //     return () => {
+  //       audio.current.removeEventListener('timeupdate', handleTimeUpdate)
+  //     }
+  //   }, [])
+
+  //   const handleTimeUpdate = () => {
+  //     setCurrentTime(audio.current.currentTime)
+  //   }
 
   useEffect(() => {
-    audio.current.addEventListener('timeupdate', handleTimeUpdate)
-    return () => {
-      audio.current.removeEventListener('timeupdate', handleTimeUpdate)
+    const handleTimeUpdate = () => {
+      if (audio.current) {
+        setCurrentTime(audio.current.currentTime)
+        setDuration(audio.current.duration)
+      }
     }
-  }, [])
 
-  const handleTimeUpdate = () => {
-    setCurrentTime(audio.current.currentTime)
-  }
+    const handleLoadedMetadata = () => {
+      if (audio.current) {
+        setDuration(audio.current.duration)
+      }
+    }
+
+    if (audio.current) {
+      audio.current.addEventListener('timeupdate', handleTimeUpdate)
+      audio.current.addEventListener('loadedmetadata', handleLoadedMetadata)
+
+      return () => {
+        audio.current.removeEventListener('timeupdate', handleTimeUpdate)
+        audio.current.removeEventListener(
+          'loadedmetadata',
+          handleLoadedMetadata
+        )
+      }
+    }
+  }, [audio])
 
   const formatTime = (time: number) => {
     if (time == null) return '0:00'
@@ -30,11 +59,11 @@ export default function SliderControl({ audio }: Props) {
     return `${minutes}:${seconds.toString().padStart(2, '0')}`
   }
 
-  const duration = audio?.current?.duration ?? 0
+  //   const duration = audio?.current?.duration ?? 0
 
   return (
-    <div className='flex flex-1 gap-x-3 text-xs'>
-      <span className='opacity-50 lg:w-12 w-48 text-right'>
+    <div className='flex flex-row lg:flex-1 w-full gap-x-2 text-xs'>
+      <span className='opacity-50 lg:w-12 lg:text-right'>
         {formatTime(currentTime)}
       </span>
 
@@ -49,7 +78,7 @@ export default function SliderControl({ audio }: Props) {
         }}
       />
 
-      <span className='opacity-50 lg:w-12 w-48'>
+      <span className='opacity-50 lg:w-12 lg:text-left'>
         {duration ? formatTime(duration) : '0:00'}
       </span>
     </div>

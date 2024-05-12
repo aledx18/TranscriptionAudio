@@ -1,0 +1,152 @@
+{
+  "task": "transcribe",
+  "language": "spanish",
+  "duration": 39.619998931884766,
+  "text": "Hola, soy María, asesora de admisiones de la Universidad Online. ¿En qué puedo ayudarte hoy? Hola María, ¿cómo estás? Estoy viendo en sus redes que estaban mostrando algunas licenciaturas, algo que tenga que ver con tecnología o podría contar un poquito más. Hola, estoy bien, gracias por preguntar. En la Universidad Online ofrecemos la Licenciatura en Desarrollo de Software, una excelente opción relacionada con tecnología. ¿Te gustaría saber más detalles sobre este programa? Sí, ¿cuál sería el plan de estudio?",
+  "segments": [
+    {
+      "id": 0,
+      "seek": 0,
+      "start": 0,
+      "end": 6,
+      "text": " Hola, soy María, asesora de admisiones de la Universidad Online.",
+      "tokens": [
+        50364, 22637, 11, 8812, 48472, 11, 382, 279, 3252, 368, 5910, 1991, 279,
+        368, 635, 14052, 4580, 16930, 13, 50664
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.2294100522994995,
+      "compression_ratio": 1.51171875,
+      "no_speech_prob": 0.0007317863055504858
+    },
+    {
+      "id": 1,
+      "seek": 0,
+      "start": 6,
+      "end": 8,
+      "text": " ¿En qué puedo ayudarte hoy?",
+      "tokens": [
+        50664, 3841, 16257, 8057, 21612, 20333, 11026, 13775, 30, 50764
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.2294100522994995,
+      "compression_ratio": 1.51171875,
+      "no_speech_prob": 0.0007317863055504858
+    },
+    {
+      "id": 2,
+      "seek": 0,
+      "start": 8,
+      "end": 10,
+      "text": " Hola María, ¿cómo estás?",
+      "tokens": [50764, 22637, 48472, 11, 3841, 46614, 24389, 30, 50864],
+      "temperature": 0,
+      "avg_logprob": -0.2294100522994995,
+      "compression_ratio": 1.51171875,
+      "no_speech_prob": 0.0007317863055504858
+    },
+    {
+      "id": 3,
+      "seek": 0,
+      "start": 10,
+      "end": 15,
+      "text": " Estoy viendo en sus redes que estaban mostrando algunas licenciaturas,",
+      "tokens": [
+        50864, 49651, 34506, 465, 3291, 16762, 631, 36713, 881, 19845, 27316,
+        6169, 30322, 267, 12907, 11, 51114
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.2294100522994995,
+      "compression_ratio": 1.51171875,
+      "no_speech_prob": 0.0007317863055504858
+    },
+    {
+      "id": 4,
+      "seek": 0,
+      "start": 15,
+      "end": 20,
+      "text": " algo que tenga que ver con tecnología o podría contar un poquito más.",
+      "tokens": [
+        51114, 8655, 631, 36031, 631, 1306, 416, 48055, 277, 27246, 27045, 517,
+        28229, 3573, 13, 51364
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.2294100522994995,
+      "compression_ratio": 1.51171875,
+      "no_speech_prob": 0.0007317863055504858
+    },
+    {
+      "id": 5,
+      "seek": 0,
+      "start": 20,
+      "end": 24,
+      "text": " Hola, estoy bien, gracias por preguntar.",
+      "tokens": [
+        51364, 22637, 11, 15796, 3610, 11, 16611, 1515, 19860, 289, 13, 51564
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.2294100522994995,
+      "compression_ratio": 1.51171875,
+      "no_speech_prob": 0.0007317863055504858
+    },
+    {
+      "id": 6,
+      "seek": 0,
+      "start": 24,
+      "end": 29,
+      "text": " En la Universidad Online ofrecemos la Licenciatura en Desarrollo de Software,",
+      "tokens": [
+        51564, 2193, 635, 14052, 4580, 16930, 295, 265, 38173, 635, 40627,
+        30322, 19660, 465, 3885, 289, 34609, 368, 27428, 11, 51814
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.2294100522994995,
+      "compression_ratio": 1.51171875,
+      "no_speech_prob": 0.0007317863055504858
+    },
+    {
+      "id": 7,
+      "seek": 2900,
+      "start": 29,
+      "end": 33,
+      "text": " una excelente opción relacionada con tecnología.",
+      "tokens": [
+        50364, 2002, 24015, 1576, 999, 5687, 27189, 1538, 416, 48055, 13, 50564
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.15148210525512695,
+      "compression_ratio": 1.158730149269104,
+      "no_speech_prob": 0.0063863047398626804
+    },
+    {
+      "id": 8,
+      "seek": 2900,
+      "start": 33,
+      "end": 37,
+      "text": " ¿Te gustaría saber más detalles sobre este programa?",
+      "tokens": [
+        50564, 3841, 14233, 45896, 12489, 3573, 1141, 37927, 5473, 4065, 21846,
+        30, 50764
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.15148210525512695,
+      "compression_ratio": 1.158730149269104,
+      "no_speech_prob": 0.0063863047398626804
+    },
+    {
+      "id": 9,
+      "seek": 2900,
+      "start": 37,
+      "end": 40,
+      "text": " Sí, ¿cuál sería el plan de estudio?",
+      "tokens": [
+        50764, 12375, 11, 3841, 12032, 11447, 23679, 806, 1393, 368, 44286, 30,
+        50914
+      ],
+      "temperature": 0,
+      "avg_logprob": -0.15148210525512695,
+      "compression_ratio": 1.158730149269104,
+      "no_speech_prob": 0.0063863047398626804
+    }
+  ]
+}

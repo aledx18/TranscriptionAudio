@@ -8,7 +8,7 @@ import VolumenControl from './VolumenControl'
 import { AudioSrc } from './const/Const'
 
 export default function FooterPlayerAudio() {
-  const { isPlaying, start } = usePlayerStore((state) => state)
+  const { isPlaying, start, url, fileName } = usePlayerStore((state) => state)
   const [playPause, setPlayPause] = useState(false)
 
   const audioRef = useRef<HTMLAudioElement | null>(null)
@@ -25,6 +25,13 @@ export default function FooterPlayerAudio() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying])
 
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.pause() // Pausar el audio actual
+      audioRef.current.currentTime = 0 // Reiniciar la posición del audio
+    }
+  }, [url])
+
   const handleCLickPlayPause = () => {
     setPlayPause(!playPause)
     audioRef.current?.paused
@@ -35,10 +42,10 @@ export default function FooterPlayerAudio() {
   return (
     <div className='lg:block w-full border-t-2 py-2 mb-0.5 lg:px-16'>
       <div>
-        <audio ref={audioRef} src={AudioSrc} />
+        <audio ref={audioRef} src={url.length > 0 ? url : AudioSrc} />
         <div>
           <h3 className='text-lg font-bold lg:text-start text-center'>
-            {AudioSrc}
+            {url.length > 0 ? fileName : AudioSrc}
           </h3>
         </div>
         <div className='flex items-center gap-4 lg:flex-row flex-col'>

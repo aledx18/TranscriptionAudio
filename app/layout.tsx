@@ -2,6 +2,7 @@
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import './globals.css'
+import KeyModal from '@/components/modal/keyModal'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -22,7 +23,10 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <link rel='icon' href='/wave.svg' sizes='any' />
-      <body className={poppins.className}>{children}</body>
+      <body className={poppins.className}>
+        <KeyModal />
+        {children}
+      </body>
     </html>
   )
 }

@@ -1,69 +1,55 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 'use client'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { useState } from 'react'
+import { Button } from './ui/button'
+import { FileAudio2Icon } from 'lucide-react'
+import { usePlayerStore } from '@/app/store/playerStore'
+import { ExitModal } from '@/app/store/useExitModal'
 
 export default function FileSubmit() {
-  const [loading, setLoading] = useState(false)
+  const { setUrl, setfileName } = usePlayerStore()
 
-  const onSubmit = async (file: any) => {
-    try {
-      setLoading(true)
-      const formData = new FormData()
-      formData.append('audio', file)
+  const { open } = ExitModal()
 
-      await fetch('/api/submit', {
-        method: 'POST',
-        body: formData
-      })
-    } catch (error: any) {
-      console.log(error)
-    } finally {
-      setLoading(false)
-    }
-  }
+  const [formData, setFormData] = useState<FormData | null>(null)
 
-  const handleFileChange = (event: any) => {
-    const file = event.target.files[0]
-    onSubmit(file)
+  const handleFileChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const target = event.target as HTMLInputElement
+    const file: File = (target.files as FileList)[0]
+    const url = URL.createObjectURL(file)
+    setUrl(url)
+    setfileName(file.name)
+
+    const data = new FormData()
+    data.append('file', file)
+    data.append('model', 'whisper-1')
+    data.append('language', 'es')
+    data.append('response_format', 'verbose_json')
+    data.append('timestamp_granularities', 'word')
+    setFormData(data)
   }
 
   return (
-    <div className='grid w-full max-w-sm items-center gap-1.5'>
-      <form>
-        <div className='flex items-center justify-between'>
-          <Label htmlFor='audio'>Audio</Label>
-          <FileAudioIcon className='h-5 w-5 text-gray-500' />
-        </div>
+    <div className='grid max-w-sm items-center gap-1.5'>
+      <div className='flex items-center gap-x-2'>
+        <Label htmlFor='audio'>Audio</Label>
+        <FileAudio2Icon className='h-4 w-4' />
+      </div>
+      <div className='flex flex-col lg:flex-row items-center gap-x-2 lg:gap-y-0 gap-y-2'>
         <Input
-          accept='.mp3'
+          accept='.mp3,.wav,.ogg,.webm,.mp4'
           id='audio'
           type='file'
-          className='rounded-xl'
+          className='rounded-xl text-white bg-primary/35 cursor-pointer'
           onChange={handleFileChange}
         />
-      </form>
+        <Button variant='colorMode' className='rounded-xl' onClick={open}>
+          Submit
+        </Button>
+      </div>
     </div>
-  )
-}
-
-function FileAudioIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns='http://www.w3.org/2000/svg'
-      width='24'
-      height='24'
-      viewBox='0 0 24 24'
-      fill='none'
-      stroke='currentColor'
-      strokeWidth='2'
-      strokeLinecap='round'
-      strokeLinejoin='round'>
-      <path d='M17.5 22h.5a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v3' />
-      <path d='M14 2v4a2 2 0 0 0 2 2h4' />
-      <path d='M2 19a2 2 0 1 1 4 0v1a2 2 0 1 1-4 0v-4a6 6 0 0 1 12 0v4a2 2 0 1 1-4 0v-1a2 2 0 1 1 4 0' />
-    </svg>
   )
 }

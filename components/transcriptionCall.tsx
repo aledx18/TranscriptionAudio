@@ -21,7 +21,7 @@ export default function TranscriptionCall() {
   }
 
   return (
-    <Card className='w-full rounded-2xl'>
+    <Card className='w-full rounded-2xl mb-4 lg:mb-0'>
       <div className='flex-1 overflow-y-auto px-2 py-3'>
         <ScrollArea className='h-[700px] w-full'>
           {transcript.map((p, i) => (
