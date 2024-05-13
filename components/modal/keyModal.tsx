@@ -15,6 +15,7 @@ import { Input } from '@/components/ui/input'
 import { onSubmitAction } from '@/app/actions/functionSubmit'
 import { Segment } from '@/app/actions/responseInterface'
 import { usePlayerStore } from '@/app/store/playerStore'
+import { LoaderCircle } from 'lucide-react'
 
 type Props = {
   formData: FormData | null
@@ -23,15 +24,21 @@ type Props = {
 export default function KeyModal({ formData }: Props) {
   const { setUrl, setConversation } = usePlayerStore()
   const { isOpen, close } = ExitModal()
+
   const [key, setKey] = useState<string>('')
   const [error, setError] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(false)
 
   async function onsubmit() {
-    if (key) {
-      const url = URL.createObjectURL(formData?.get('file') as File)
+    if (!key) return
+    setLoading(true)
+    const url = URL.createObjectURL(formData?.get('file') as File)
+
+    try {
       const res = await onSubmitAction({ formData, key })
       if (res.error) {
         setError(res.error)
+        setLoading(false)
       } else {
         setUrl(url)
         const data = res.segments.map((segment: Segment, i: number) => ({
@@ -44,6 +51,11 @@ export default function KeyModal({ formData }: Props) {
         setConversation(data)
         close()
       }
+    } catch (error) {
+      console.error('Error submitting:', error)
+      setError('An error occurred while submitting.')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -51,27 +63,31 @@ export default function KeyModal({ formData }: Props) {
     <Dialog open={isOpen} onOpenChange={close}>
       <DialogContent className='max-w-md'>
         <DialogHeader>
-          <DialogTitle>Enter your key</DialogTitle>
-          <DialogDescription>
-            From Open Ai to transcribe your audio
-          </DialogDescription>
+          <DialogTitle className='font-medium'>
+            Enter your openai api key
+          </DialogTitle>
+          <DialogDescription>To transcribe your audio</DialogDescription>
         </DialogHeader>
         <DialogFooter className='mb-4'>
           <div className='flex gap-x-2 w-full'>
             <Input
-              className='rounded-xl'
+              className='rounded-xl focus-visible:ring-1 focus-visible:ring-primary/40 focus:ring-0'
               placeholder='Enter your key'
               onChange={(e) => setKey(e.target.value)}
             />
             <Button
+              disabled={loading}
               variant='colorMode'
               className='rounded-xl'
               onClick={onsubmit}>
-              Transcript file
+              {loading && (
+                <LoaderCircle className='h-4 w-4 animate-spin mr-1' />
+              )}
+              {loading ? 'Transcribing...' : 'Transcript file'}
             </Button>
           </div>
         </DialogFooter>
-        <p className='text-sm'>{error}</p>
+        {error && <p className='text-xs text-muted-foreground'>{error}</p>}
       </DialogContent>
     </Dialog>
   )
