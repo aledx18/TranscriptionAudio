@@ -1,29 +1,27 @@
 type Props = {
-  formData: any
+  formData: FormData | null
   key: string
 }
 
 export async function onSubmitAction({ formData, key }: Props) {
-  console.log('formData', formData)
-
+  if (!key) {
+    return 'error key'
+  }
   try {
-    if (!key) {
-      return 'error key'
+    const res = await fetch('https://api.openai.com/v1/audio/transcriptions', {
+      headers: {
+        Authorization: `Bearer ${key}`
+      },
+      method: 'POST',
+      body: formData
+    })
+    if (!res.ok) {
+      const error = (await res.json()).error
+      return { error: error.message }
     }
-    // const res = await fetch('https://api.openai.com/v1/audio/transcriptions', {
-    //   headers: {
-    //     Authorization: 'Bearer asddas'
-    //   },
-    //   method: 'POST',
-    //   body: formData
-    // })
-    // const data = await res.json()
-    console.log('hola')
-    return 'retorno file transcription'
+    return await res.json()
   } catch (error: any) {
-    console.log(error)
-    return error
-  } finally {
-    console.log('final')
+    console.log('error', error)
+    return error.message
   }
 }
